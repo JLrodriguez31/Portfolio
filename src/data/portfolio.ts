@@ -1,5 +1,4 @@
 import animalPage3D from "../assets/AnimalPage3D.png"
-import dashboardPage3D from "../assets/DashboardPage3D.png"
 import eraPage3D from "../assets/EraPage3D.png"
 import hydroDataImage from "../assets/hydroData.png"
 import movieHorizonImage from "../assets/movieHorizon.png"
@@ -59,7 +58,7 @@ export const projects: Project[] = [
     year: "2025",
     description: "A browser-based 3D configurator that turns complex product data into a fast, intuitive workspace.",
     image: welcomePage3D,
-    gallery: [welcomePage3D, dashboardPage3D, timelinePage3D, eraPage3D, animalPage3D, museumPage3D],
+    gallery: [welcomePage3D, timelinePage3D, eraPage3D, animalPage3D, museumPage3D],
     tags: ["React", "TypeScript", "Three.js", "R3F", "Supabase"],
     role: "Frontend Engineer · Product lead",
     challenges: "Making a large library of 3D assets feel immediate while keeping the editor approachable for non-technical teams.",

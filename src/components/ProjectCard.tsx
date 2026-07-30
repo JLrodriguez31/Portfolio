@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
-import { FiArrowUpRight, FiChevronDown, FiGithub } from "react-icons/fi"
+import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
+import { FiArrowUpRight, FiChevronDown, FiChevronLeft, FiChevronRight, FiGithub, FiX } from "react-icons/fi"
 import type { Project } from "../data/portfolio"
 
 type ProjectCardProps = {
@@ -11,25 +12,56 @@ type ProjectCardProps = {
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const projectImages = project.gallery ?? [project.image]
+  const imageCount = projectImages.length
+
+  useEffect(() => {
+    if (!isLightboxOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsLightboxOpen(false)
+      if (event.key === "ArrowLeft") setActiveImageIndex((current) => (current - 1 + imageCount) % imageCount)
+      if (event.key === "ArrowRight") setActiveImageIndex((current) => (current + 1) % imageCount)
+    }
+    const previousOverflow = document.body.style.overflow
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [imageCount, isLightboxOpen])
+
+  const showPreviousImage = () => setActiveImageIndex((current) => (current - 1 + imageCount) % imageCount)
+  const showNextImage = () => setActiveImageIndex((current) => (current + 1) % imageCount)
 
   return (
+    <>
     <motion.article className={`project-card ${project.featured ? "project-card-featured" : ""}`} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.24) }}>
       <div className="project-media">
-        <img className="project-media-main" src={projectImages[activeImageIndex]} alt={`${project.title} project preview ${activeImageIndex + 1}`} loading={project.featured ? "eager" : "lazy"} />
+        <button className="project-media-main-button" type="button" aria-label={`Open ${project.title} screenshot ${activeImageIndex + 1} fullscreen`} onClick={() => setIsLightboxOpen(true)}>
+          <img className="project-media-main" src={projectImages[activeImageIndex]} alt={`${project.title} project preview ${activeImageIndex + 1}`} loading={project.featured ? "eager" : "lazy"} />
+        </button>
         <div className="project-media-shade" />
         <span className="project-number">0{index + 1}</span>
-        <span className="project-category">{project.category}</span>
-        {project.featured && <span className="featured-label">Featured work</span>}
-        {projectImages.length > 1 && (
-          <div className="project-media-thumbnails" aria-label={`${project.title} project screenshots`}>
-            {projectImages.map((image, imageIndex) => (
-              <button className="project-media-thumb" key={image} type="button" aria-label={`Show ${project.title} screenshot ${imageIndex + 1}`} aria-pressed={activeImageIndex === imageIndex} onClick={() => setActiveImageIndex(imageIndex)}>
-                <img src={image} alt="" />
-              </button>
-            ))}
+        <div className="project-media-footer">
+          {projectImages.length > 1 && (
+            <div className="project-media-thumbnails" aria-label={`${project.title} project screenshots`}>
+              {projectImages.map((image, imageIndex) => (
+                <button className="project-media-thumb" key={image} type="button" aria-label={`Show ${project.title} screenshot ${imageIndex + 1}`} aria-pressed={activeImageIndex === imageIndex} onClick={() => setActiveImageIndex(imageIndex)}>
+                  <img src={image} alt="" />
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="project-media-meta">
+            {project.featured && <span className="featured-label">Featured work</span>}
+            <span className="project-category">{project.category}</span>
           </div>
-        )}
+        </div>
       </div>
 
       <div className="project-content">
@@ -69,5 +101,33 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </div>
     </motion.article>
+    {isLightboxOpen && createPortal(
+      <div className="project-lightbox" role="dialog" aria-modal="true" aria-label={`${project.title} screenshot viewer`} onClick={() => setIsLightboxOpen(false)}>
+        <div className="project-lightbox-panel" onClick={(event) => event.stopPropagation()}>
+          <button className="project-lightbox-close" type="button" aria-label="Close image viewer" onClick={() => setIsLightboxOpen(false)}>
+            <FiX aria-hidden="true" />
+          </button>
+          <div className="project-lightbox-stage">
+            {imageCount > 1 && (
+              <button className="project-lightbox-nav project-lightbox-prev" type="button" aria-label="Previous screenshot" onClick={showPreviousImage}>
+                <FiChevronLeft aria-hidden="true" />
+              </button>
+            )}
+            <img src={projectImages[activeImageIndex]} alt={`${project.title} project preview ${activeImageIndex + 1}`} />
+            {imageCount > 1 && (
+              <button className="project-lightbox-nav project-lightbox-next" type="button" aria-label="Next screenshot" onClick={showNextImage}>
+                <FiChevronRight aria-hidden="true" />
+              </button>
+            )}
+          </div>
+          <div className="project-lightbox-caption">
+            <span>{project.title}</span>
+            <span>{String(activeImageIndex + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}</span>
+          </div>
+        </div>
+      </div>,
+      document.body,
+    )}
+    </>
   )
 }
