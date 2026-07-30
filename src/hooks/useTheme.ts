@@ -5,7 +5,7 @@ type Theme = "dark" | "light"
 const getInitialTheme = (): Theme => {
   const savedTheme = window.localStorage.getItem("portfolio-theme")
   if (savedTheme === "light" || savedTheme === "dark") return savedTheme
-  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
+  return "dark"
 }
 
 export function useTheme() {

@@ -22,7 +22,7 @@ export default function HomePage() {
 
         <section className="section section-about" id="about">
           <div className="shell">
-            <SectionHeading index="01" eyebrow="A little context" title="Engineer with a product eye." description="The best work sits at the intersection of clear thinking, good taste, and care for the person using it." />
+            <SectionHeading index="01" eyebrow="A little context" title="Engineer with a product mindset." description="I enjoy building software where engineering, usability, and product thinking come together. My goal is to create experiences that are fast, intuitive, and built to scale." />
             <AboutSection />
           </div>
         </section>

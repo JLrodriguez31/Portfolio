@@ -46,15 +46,18 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           <img className="project-media-main" src={projectImages[activeImageIndex]} alt={`${project.title} project preview ${activeImageIndex + 1}`} loading={project.featured ? "eager" : "lazy"} />
         </button>
         <div className="project-media-shade" />
-        <span className="project-number">0{index + 1}</span>
         <div className="project-media-footer">
           {projectImages.length > 1 && (
             <div className="project-media-thumbnails" aria-label={`${project.title} project screenshots`}>
-              {projectImages.map((image, imageIndex) => (
-                <button className="project-media-thumb" key={image} type="button" aria-label={`Show ${project.title} screenshot ${imageIndex + 1}`} aria-pressed={activeImageIndex === imageIndex} onClick={() => setActiveImageIndex(imageIndex)}>
-                  <img src={image} alt="" />
-                </button>
-              ))}
+              <span className="project-media-thumbnails-count" aria-live="polite">{String(activeImageIndex + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}</span>
+              <div className="project-media-thumb-list">
+                {projectImages.map((image, imageIndex) => (
+                  <button className="project-media-thumb" key={image} type="button" aria-label={`Show ${project.title} screenshot ${imageIndex + 1}`} aria-pressed={activeImageIndex === imageIndex} onClick={() => setActiveImageIndex(imageIndex)}>
+                    <img src={image} alt="" />
+                    <span className="project-media-thumb-index">{String(imageIndex + 1).padStart(2, "0")}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           )}
           <div className="project-media-meta">

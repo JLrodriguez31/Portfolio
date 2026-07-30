@@ -179,13 +179,17 @@ h1 span:not(.hero-dot) { color: var(--muted); }
 .project-card-featured .project-media-main { object-fit: contain; filter: none; }
 .project-card-featured:hover .project-media-main { transform: none; }
 .project-media-footer { z-index: 2; background: var(--surface); }
-.project-media-thumbnails { display: flex; justify-content: flex-end; gap: 6px; padding: 1px 20px; border-bottom: 1px solid var(--line); background: var(--surface-raised); }
-.project-media-thumb { width: 42px; height: 31px; cursor: pointer; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.42); padding: 0; background: rgba(9, 12, 10, 0.58); opacity: 0.7; transition: border-color 160ms ease, opacity 160ms ease, transform 160ms ease; }
-.project-media-thumb:hover, .project-media-thumb[aria-pressed="true"] { border-color: var(--accent); opacity: 1; transform: translateY(-2px); }
+.project-media-thumbnails { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--surface-raised); }
+.project-media-thumbnails-count { min-width: 38px; color: var(--accent); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.08em; }
+.project-media-thumb-list { display: flex; min-width: 0; flex: 1; justify-content: flex-end; gap: 7px; overflow-x: auto; padding: 2px 1px 4px; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+.project-media-thumb-list::-webkit-scrollbar { height: 4px; }
+.project-media-thumb-list::-webkit-scrollbar-thumb { background: var(--line-strong); }
+.project-media-thumb { position: relative; width: 56px; height: 40px; flex: 0 0 56px; cursor: pointer; overflow: hidden; border: 1px solid color-mix(in srgb, var(--line-strong) 72%, transparent); border-radius: 2px; padding: 0; background: var(--surface); opacity: 0.68; transition: border-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease, transform 160ms ease; }
+.project-media-thumb:hover, .project-media-thumb[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); opacity: 1; transform: translateY(-2px); }
 .project-media-thumb img { width: 100%; height: 100%; object-fit: cover; filter: none; }
+.project-media-thumb-index { position: absolute; right: 3px; bottom: 2px; padding: 1px 3px; background: rgba(9, 12, 10, 0.78); color: #fff; font-family: "DM Mono", monospace; font-size: 9px; line-height: 1.1; }
 .project-media-meta { display: flex; align-items: center; justify-content: space-between; gap: 15px; min-height: 31px; padding: 9px 20px; }
-.project-number, .project-category, .featured-label { font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
-.project-number { position: absolute; top: 14px; left: 20px; color: #fff; }
+.project-category, .featured-label { font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
 .project-category { color: var(--muted-strong); }
 .featured-label { color: var(--accent); }
 .project-content { display: flex; min-height: 100%; flex-direction: column; padding: 32px 32px 24px; }
@@ -342,9 +346,11 @@ h1 span:not(.hero-dot) { color: var(--muted); }
 	.projects-grid { display: block; }
 	.project-card, .project-card-featured { display: block; margin-bottom: 18px; }
 	.project-media, .project-card-featured .project-media { min-height: 270px; }
-	.project-media-thumbnails { right: 12px; bottom: 58px; left: 12px; justify-content: flex-start; gap: 4px; padding: 4px 5px; overflow-x: auto; scrollbar-width: none; }
-	.project-media-thumbnails::-webkit-scrollbar { display: none; }
-	.project-media-thumb { width: 34px; height: 26px; flex: 0 0 34px; }
+	.project-media-thumbnails { gap: 8px; padding: 8px 12px; }
+	.project-media-thumbnails-count { min-width: 34px; font-size: 10px; }
+	.project-media-thumb-list { justify-content: flex-start; gap: 5px; scrollbar-width: none; }
+	.project-media-thumb-list::-webkit-scrollbar { display: none; }
+	.project-media-thumb { width: 48px; height: 34px; flex-basis: 48px; }
 	.project-content { min-height: 350px; padding: 25px 21px 22px; }
 	.project-title-row h3 { font-size: 31px; }
 	.project-footer { align-items: flex-end; }

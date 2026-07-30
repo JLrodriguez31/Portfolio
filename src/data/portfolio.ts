@@ -1,9 +1,19 @@
 import animalPage3D from "../assets/AnimalPage3D.png"
+import authPageHydro from "../assets/AuthPageHydro.png"
+import dashboardPageHydro from "../assets/DashboardPageHydro.png"
 import eraPage3D from "../assets/EraPage3D.png"
 import hydroDataImage from "../assets/hydroData.png"
+import mapPageHydro from "../assets/MapPageHydro.png"
+import monitorPageHydro from "../assets/MonitorPageHydro.png"
 import movieHorizonImage from "../assets/movieHorizon.png"
+import movie2Image from "../assets/movie2.png"
+import movie3Image from "../assets/movie3.png"
+import movie4Image from "../assets/movie4.png"
 import museumPage3D from "../assets/MuseumPage3D.png"
+import peluqeria4Image from "../assets/peluqeria4.png"
 import peluqueriaImage from "../assets/peluqueria.png"
+import peluqueria2Image from "../assets/peluqueria2.png"
+import peluqueria3Image from "../assets/peluqueria3.png"
 import timelinePage3D from "../assets/TimelinePage3D.png"
 import welcomePage3D from "../assets/WelcomePage 3D.png"
 
@@ -47,7 +57,7 @@ export const profile = {
   linkedinLabel: "/in/juanrodriguezchavarria",
   github: "https://github.com/JLrodriguez31",
   githubLabel: "github.com/JLrodriguez31",
-  summary: "Frontend Software Engineer specialized in React and TypeScript, with experience building scalable and maintainable web applications. Passionate about creating intuitive user experiences, collaborating in cross-functional teams, and delivering high-quality software through modern frontend technologies, testing, and AI-assisted development. Currently expanding my expertise in Python and AI Engineering.",
+  summary: "Frontend Software Engineer specialized in React and TypeScript, building maintainable web applications with a strong focus on performance and user experience. Currently expanding my expertise in Python and AI Engineering.",
 }
 
 export const projects: Project[] = [
@@ -75,6 +85,7 @@ export const projects: Project[] = [
     year: "2024",
     description: "Hackathon finalist: a clear, collaborative way to understand local water health through live data.",
     image: hydroDataImage,
+    gallery: [hydroDataImage, dashboardPageHydro, authPageHydro, mapPageHydro, monitorPageHydro],
     tags: ["React", "Supabase", "Recharts", "Leaflet", "REST APIs"],
     role: "Frontend Engineer · Data UX",
     challenges: "Giving meaning to noisy environmental data without hiding uncertainty or asking people to learn a specialist dashboard.",
@@ -90,6 +101,7 @@ export const projects: Project[] = [
     year: "2023",
     description: "A focused movie discovery app with fast search, useful context, and a watchlist that gets out of the way.",
     image: movieHorizonImage,
+    gallery: [movieHorizonImage, movie2Image, movie3Image, movie4Image],
     tags: ["React", "TypeScript", "TMDB API", "Firebase"],
     role: "Frontend Engineer · Solo project",
     challenges: "Designing a browsing flow that works equally well for a quick search and a long evening of discovery across devices.",
@@ -105,6 +117,7 @@ export const projects: Project[] = [
     year: "2023",
     description: "A high-converting local website that gives a neighbourhood studio a sharper digital presence.",
     image: peluqueriaImage,
+    gallery: [peluqueriaImage, peluqueria2Image, peluqueria3Image, peluqeria4Image],
     tags: ["Vue 3", "TypeScript", "TailwindCSS", "SEO", "Runway"],
     role: "Freelance Frontend Developer",
     challenges: "Balancing a strong visual identity with the practical need to book quickly from a phone and be found locally.",
