@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { FiArrowUpRight, FiChevronDown, FiChevronLeft, FiChevronRight, FiGithub, FiX } from "react-icons/fi"
+import { FiArrowUpRight, FiChevronDown, FiChevronLeft, FiChevronRight, FiGithub, FiMinus, FiPlus, FiX } from "react-icons/fi"
 import type { Project } from "../data/portfolio"
 
 type ProjectCardProps = {
@@ -11,10 +11,36 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [areTagsExpanded, setAreTagsExpanded] = useState(false)
+  const [hasMultipleTagRows, setHasMultipleTagRows] = useState(false)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+  const tagListRef = useRef<HTMLDivElement>(null)
   const projectImages = project.gallery ?? [project.image]
   const imageCount = projectImages.length
+
+  useEffect(() => {
+    const tagList = tagListRef.current
+    if (!tagList) return
+
+    const updateTagRows = () => {
+      const firstTag = tagList.firstElementChild as HTMLElement | null
+      if (!firstTag) {
+        setHasMultipleTagRows(false)
+        return
+      }
+
+      const firstRowTop = firstTag.offsetTop
+      const hasSecondRow = Array.from(tagList.children).some((tag) => (tag as HTMLElement).offsetTop > firstRowTop)
+      setHasMultipleTagRows(hasSecondRow)
+    }
+
+    updateTagRows()
+    const resizeObserver = new ResizeObserver(updateTagRows)
+    resizeObserver.observe(tagList)
+
+    return () => resizeObserver.disconnect()
+  }, [project.id, project.tags.length])
 
   useEffect(() => {
     if (!isLightboxOpen) return
@@ -40,7 +66,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <>
-    <motion.article className={`project-card ${project.featured ? "project-card-featured" : ""}`} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.24) }}>
+    <motion.article className={`project-card ${project.featured ? "project-card-featured" : ""} ${project.featured && isExpanded ? "project-card-featured-expanded" : ""}`} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.24) }}>
       <div className="project-media">
         <button className="project-media-main-button" type="button" aria-label={`Open ${project.title} screenshot ${activeImageIndex + 1} fullscreen`} onClick={() => setIsLightboxOpen(true)}>
           <img className="project-media-main" src={projectImages[activeImageIndex]} alt={`${project.title} project preview ${activeImageIndex + 1}`} loading={project.featured ? "eager" : "lazy"} />
@@ -70,15 +96,26 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       <div className="project-content">
         <div className="project-title-row">
           <div>
-            <div className="project-meta">{project.year} <span /> Selected project</div>
+            <div className="project-meta"><span />{project.period}  </div>
             <h3>{project.title}</h3>
           </div>
-          <span className="project-arrow"><FiArrowUpRight aria-hidden="true" /></span>
+          {project.href ? (
+            <a className="project-arrow" href={project.href} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} live demo`}>
+              <FiArrowUpRight aria-hidden="true" />
+            </a>
+          ) : (
+            <span className="project-arrow"><FiArrowUpRight aria-hidden="true" /></span>
+          )}
         </div>
         <p className="project-description">{project.description}</p>
-        <div className="tag-list" aria-label={`${project.title} technologies`}>
+        <div ref={tagListRef} className={`tag-list ${isExpanded || areTagsExpanded ? "is-expanded" : ""}`} aria-label={`${project.title} technologies`}>
           {project.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
         </div>
+        {hasMultipleTagRows && !isExpanded && (
+          <button className={`tags-toggle ${areTagsExpanded ? "is-expanded" : ""}`} type="button" aria-expanded={areTagsExpanded} onClick={() => setAreTagsExpanded((current) => !current)}>
+            {areTagsExpanded ? "Show less" : "View full stack"} {areTagsExpanded ? <FiMinus aria-hidden="true" /> : <FiPlus aria-hidden="true" />}
+          </button>
+        )}
 
         <AnimatePresence initial={false}>
           {isExpanded && (
@@ -97,10 +134,12 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           <button className="read-more" type="button" onClick={() => setIsExpanded((current) => !current)} aria-expanded={isExpanded}>
             {isExpanded ? "Close details" : "Read more"} <FiChevronDown className={isExpanded ? "is-open" : ""} aria-hidden="true" />
           </button>
-          <div className="project-links">
-            <a href={project.href} target="_blank" rel="noreferrer">Live demo <FiArrowUpRight aria-hidden="true" /></a>
-            <a className="github-link" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub`}><FiGithub aria-hidden="true" /></a>
-          </div>
+          {(project.href || project.github) && (
+            <div className="project-links">
+              {project.href && <a href={project.href} target="_blank" rel="noreferrer">Live demo <FiArrowUpRight aria-hidden="true" /></a>}
+              {project.github && <a className="github-link" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub`}><FiGithub aria-hidden="true" /></a>}
+            </div>
+          )}
         </div>
       </div>
     </motion.article>

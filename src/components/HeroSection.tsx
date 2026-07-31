@@ -3,6 +3,7 @@ import { FiArrowDown, FiArrowUpRight, FiGithub, FiLinkedin } from "react-icons/f
 import UnicornScene from "unicornstudio-react"
 import cvFile from "../assets/JuanLuis_Rodriguez_CV.pdf"
 import profileImage from "../assets/perfil1.PNG"
+import unicornVideo from "../assets/unicornVideo.mp4"
 import { profile } from "../data/portfolio"
 
 type HeroSectionProps = {
@@ -25,6 +26,13 @@ export default function HeroSection({ theme }: HeroSectionProps) {
             sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@2.1.9/dist/unicornStudio.umd.js"
             className="hero-unicorn-canvas"
           />
+        </div>
+      )}
+      {theme === "light" && (
+        <div className="hero-video" aria-hidden="true">
+          <video className="hero-video-media" autoPlay muted loop playsInline preload="metadata">
+            <source src={unicornVideo} type="video/mp4" />
+          </video>
         </div>
       )}
       <div className="hero-grid" aria-hidden="true" />

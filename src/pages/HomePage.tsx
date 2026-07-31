@@ -10,6 +10,9 @@ import SkillsSection from "../components/SkillsSection"
 import { education, languages, profile, projects } from "../data/portfolio"
 import { useTheme } from "../hooks/useTheme"
 
+const personalProjects = projects.filter((project) => project.projectType === "personal")
+const freelanceProjects = projects.filter((project) => project.projectType === "freelance")
+
 export default function HomePage() {
   const { theme, toggleTheme } = useTheme()
 
@@ -30,8 +33,29 @@ export default function HomePage() {
         <section className="section section-projects" id="projects">
           <div className="shell">
             <SectionHeading index="02" eyebrow="Selected work" title="Things I've helped bring to life." description="A few projects that show how I think, build, and make trade-offs visible." />
-            <div className="projects-grid">
-              {projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+            <div className="projects-group">
+              <div className="projects-group-heading">
+                <div>
+                  <p className="eyebrow">Independent work</p>
+                  <h3>Personal projects</h3>
+                </div>
+                <span>{personalProjects.length} projects</span>
+              </div>
+              <div className="projects-grid">
+                {personalProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+              </div>
+            </div>
+            <div className="projects-group">
+              <div className="projects-group-heading">
+                <div>
+                  <p className="eyebrow">Client work</p>
+                  <h3>Freelance projects</h3>
+                </div>
+                <span>{freelanceProjects.length} projects</span>
+              </div>
+              <div className="projects-grid">
+                {freelanceProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+              </div>
             </div>
           </div>
         </section>
