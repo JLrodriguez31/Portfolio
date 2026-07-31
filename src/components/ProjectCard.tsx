@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { FiArrowUpRight, FiChevronDown, FiChevronLeft, FiChevronRight, FiGithub, FiMinus, FiPlus, FiX } from "react-icons/fi"
+import { FiArrowUpRight, FiChevronDown, FiChevronLeft, FiChevronRight, FiGitBranch, FiGitCommit, FiGithub, FiMinus, FiPlus, FiX } from "react-icons/fi"
 import type { Project } from "../data/portfolio"
 
 type ProjectCardProps = {
@@ -115,6 +115,12 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           <button className={`tags-toggle ${areTagsExpanded ? "is-expanded" : ""}`} type="button" aria-expanded={areTagsExpanded} onClick={() => setAreTagsExpanded((current) => !current)}>
             {areTagsExpanded ? "Show less" : "View full stack"} {areTagsExpanded ? <FiMinus aria-hidden="true" /> : <FiPlus aria-hidden="true" />}
           </button>
+        )}
+        {project.githubStats && (
+          <div className="project-github-stats" aria-label={`${project.title} GitHub activity`}>
+            <strong><FiGitCommit aria-hidden="true" /> {project.githubStats.commits} commits</strong>
+            {project.githubStats.branches !== undefined && <strong><FiGitBranch aria-hidden="true" /> {project.githubStats.branches} branches</strong>}
+          </div>
         )}
 
         <AnimatePresence initial={false}>

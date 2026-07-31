@@ -34,6 +34,10 @@ export type Project = {
   challenges: string
   architecture: string
   learned: string
+  githubStats?: {
+    commits: number
+    branches?: number
+  }
   href?: string
   github?: string
   featured?: boolean
@@ -78,7 +82,8 @@ export const projects: Project[] = [
     role: "Fullstack Developer · Solo Developer",
     challenges: "Helping users explore dozens of species and eras without feeling overwhelmed.",
     architecture: "Modular React features, React Three Fiber for the viewport, and Supabase for auth, persistence, and structured content.",
-    learned: "A technically impressive product still fails if navigation and onboarding aren't intuitive.",
+    learned: "Combining 3D scenes with UI taught me that asset optimization is essential for a smooth experience.",
+    githubStats: { commits: 77, branches: 12 },
     href: "https://evolution3d.vercel.app/",
     github: "https://github.com/JLrodriguez31/Evolution3D",
     featured: true,
@@ -97,6 +102,7 @@ export const projects: Project[] = [
     challenges: "Giving noisy environmental data enough shape to reveal patterns without hiding uncertainty.",
     architecture: "A React frontend of charts and maps connected to a Java/Spring Boot REST backend, with Supabase handling the product's shared data layer.",
     learned: "Good data visualisation starts with the question people are trying to answer, not the chart library.",
+    githubStats: { commits: 138, branches: 21 },
     href: "https://hackathon-repte3-frontend.vercel.app/",
     github: "https://github.com/JLrodriguez31/Hydrodata",
   },
@@ -113,7 +119,8 @@ export const projects: Project[] = [
     role: "Frontend Engineer · Solo Developer",
     challenges: "Connecting movies and actors naturally while keeping discovery quick, detailed, and easy to resume.",
     architecture: "React and TypeScript views with cached TMDB queries, Firebase authentication, and a responsive component system.",
-    learned: "Small details, like preserving search context, are what make a product feel considered.",
+    learned: "A visual interface can turn searching for a film into a more immersive and enjoyable discovery experience.",
+    githubStats: { commits: 58, branches: 12 },
     href: "https://jlrodriguez31.github.io/MovieHorizon/",
     github: "https://github.com/JLrodriguez31/MovieHorizon",
   },
@@ -131,6 +138,7 @@ export const projects: Project[] = [
     challenges: "Balancing a stronger visual identity with the practical need to be found and contacted quickly on a phone.",
     architecture: "Vue 3 Composition API components, responsive Tailwind layouts, Runway-generated visual assets, and a focused SEO foundation.",
     learned: "The best client work keeps personality and practical business goals in the same frame.",
+    githubStats: { commits: 20 },
     href: "https://peluqueriajuancarlos.vercel.app/",
     github: "https://github.com/JLrodriguez31/Peluqueria-v2",
   },
@@ -148,6 +156,7 @@ export const projects: Project[] = [
     challenges: "Creating a credible, useful presence for a local business with a small and focused toolkit.",
     architecture: "Semantic HTML, custom CSS layouts, and vanilla JavaScript for navigation and lightweight interactions.",
     learned: "A clear visual system can make a small website feel intentional without adding technical complexity.",
+    githubStats: { commits: 48 },
     href: "https://jlrodriguez31.github.io/Peluqueria/",
     github: "https://github.com/JLrodriguez31/Peluqueria",
   },

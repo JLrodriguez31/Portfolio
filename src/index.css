@@ -26,16 +26,16 @@
 	background: #f3f4ef;
 	--bg: #f3f4ef;
 	--surface: #ffffff;
-	--surface-raised: #e9ece5;
-	--surface-soft: #dfe5dc;
+	--surface-raised: #e4e9e1;
+	--surface-soft: #d9e1d7;
 	--ink: #151917;
-	--muted: #69736a;
-	--muted-strong: #3f4941;
-	--line: rgba(21, 25, 23, 0.13);
-	--line-strong: rgba(21, 25, 23, 0.24);
+	--muted: #5d685f;
+	--muted-strong: #374239;
+	--line: rgba(21, 25, 23, 0.17);
+	--line-strong: rgba(21, 25, 23, 0.29);
 	--accent: #527829;
 	--accent-ink: #f6f8ef;
-	--shadow: 0 28px 70px rgba(21, 25, 23, 0.1);
+	--shadow: 0 28px 70px rgba(21, 25, 23, 0.14);
 }
 
 * { box-sizing: border-box; }
@@ -219,6 +219,11 @@ h1 span:not(.hero-dot) { color: var(--muted); }
 .tags-toggle:hover { border-color: var(--line-strong); background: var(--surface-raised); color: var(--accent); }
 .tags-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .tags-toggle svg { font-size: 11px; }
+.project-github-stats { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase; }
+.project-github-stats > span { display: inline-flex; align-items: center; gap: 6px; color: var(--muted-strong); }
+.project-github-stats svg { font-size: 14px; }
+.project-github-stats strong { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); font-weight: 400; }
+.project-github-stats strong svg { color: var(--muted); font-size: 14px; }
 .project-details { overflow: hidden; }
 .details-grid { display: grid; gap: 18px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
 .details-grid div { display: grid; grid-template-columns: 100px 1fr; gap: 14px; }
