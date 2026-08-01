@@ -62,7 +62,7 @@ export default function HomePage() {
 
         <section className="section section-experience" id="experience">
           <div className="shell">
-            <SectionHeading index="03" eyebrow="Experience" title="A record of making things clearer." description="From civic tech to independent product work, I've learned to care about the system behind the screen." />
+            <SectionHeading index="03" eyebrow="Experience" title="Experience that shaped my approach." description="From civic tech to freelance work, every project has strengthened my focus on building thoughtful software." />
             <ExperienceSection />
           </div>
         </section>

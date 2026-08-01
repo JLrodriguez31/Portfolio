@@ -164,8 +164,8 @@ export const projects: Project[] = [
 
 export const experiences: Experience[] = [
   {
-    role: "Frontend Engineer",
-    company: "Freelance (Self-employed)",
+    role: "Frontend Engineer Freelance",
+    company: "Local business (Barbershop)",
     period: "Apr 2026 - Jun 2026",
     location: "Barcelona",
     description: "Designed and developed the digital presence of a barbershop, including a complete website redesign, branding assets, and online visibility improvements. Collaborated directly with the client from requirements gathering through final delivery.",
@@ -190,7 +190,7 @@ export const experiences: Experience[] = [
 ]
 
 export const skillGroups = [
-  { label: "Frontend", items: ["React", "Vue.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Sass"] },
+  { label: "Frontend", items: ["React", "Vue.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Sass", "Three.js", "Vite"] },
   { label: "Design + UX", items: ["Responsive design", "Mobile-first design", "Pixel-perfect implementation", "Figma", "Storybook"] },
   { label: "Testing", items: ["Vitest", "Jest", "Unit testing", "Regression prevention"] },
   { label: "State + APIs", items: ["Redux", "Context API", "TanStack Query", "Axios", "REST API integration"] },
